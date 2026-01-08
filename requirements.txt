@@ -5,33 +5,34 @@ streamlit==1.32.0
 rasa==3.6.0
 rasa-sdk==3.6.0
 spacy==3.7.0
-en-core-web-md @ https://github.com/explosion/spacy-models/releases/download/en_core_web_md-3.7.0/en_core_web_md-3.7.0-py3-none-any.whl
+en-core-web-md @ https://github.com/explosion/spacy-models/releases/download/en_core_web_md-3.7.0/en_core_web_md-3-7-0-py3-none-any.whl
 
 # Database
-pymongo==4.6.0
-dnspython==2.4.0
+pymongo>=4.6.0
+dnspython>=2.6.0
 
 # HTTP Requests
-requests==2.31.0
+requests>=2.31.0
 
 # Data Processing
-pandas==2.2.0
-numpy==1.24.0
+pandas>=2.0.0
+numpy<2.0.0
 
 # Visualization
-plotly==5.18.0
+plotly>=5.18.0
+matplotlib>=3.8.0
 
 # PDF Generation
-reportlab==4.0.9
+reportlab>=4.0.0
 
-# PyTorch (for Rasa models)
-torch==2.1.0
-torchvision==0.16.0
-torchaudio==2.1.0
-
-# Hugging Face (for model hosting)
-transformers==4.36.0
-huggingface-hub==0.20.0
+# Hugging Face & Torch (Optimisé CPU)
+# On retire les versions strictes pour laisser pip résoudre les conflits
+huggingface-hub>=0.20.0
+transformers>=4.36.0
+tokenizers>=0.15.0
+torch>=2.0.0 --index-url https://download.pytorch.org/whl/cpu
+sentencepiece>=0.1.99
+safetensors>=0.4.0
 
 # Additional utilities
 python-dotenv==1.0.0
