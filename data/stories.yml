@@ -1,0 +1,328 @@
+version: "3.1"
+
+stories:
+  # Story 1: Conversation heureuse avec rapport automatique
+  - story: happy path
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - action: action_analyze_sentiment
+      - intent: mood_great
+      - action: action_analyze_sentiment
+      - action: action_empathic_response
+      - action: utter_acknowledge_positive
+      - intent: goodbye
+      - action: action_analyze_sentiment
+      - action: action_check_session_end
+      - action: utter_goodbye
+      - action: action_save_conversation
+
+  # Story 2: Utilisateur triste avec détection de risque
+  - story: sad user path
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - action: action_analyze_sentiment
+      - intent: feeling_sad
+      - action: action_analyze_sentiment
+      - action: action_detect_risk
+      - action: action_empathic_response
+      - action: utter_offer_help
+      - intent: goodbye
+      - action: action_analyze_sentiment
+      - action: action_check_session_end
+      - action: utter_goodbye
+      - action: action_save_conversation
+
+  # Story 3: Expression tristesse
+  - story: express sadness
+    steps:
+      - intent: feeling_sad
+      - action: action_analyze_sentiment
+      - action: action_detect_risk
+      - action: action_empathic_response
+      - action: utter_offer_help
+
+  # Story 4: Expression anxiété
+  - story: express anxiety
+    steps:
+      - intent: feeling_anxious
+      - action: action_analyze_sentiment
+      - action: action_detect_risk
+      - action: action_empathic_response
+      - action: utter_offer_help
+
+  # Story 5: Expression colère
+  - story: express anger
+    steps:
+      - intent: feeling_angry
+      - action: action_analyze_sentiment
+      - action: action_detect_risk
+      - action: action_empathic_response
+      - action: utter_offer_help
+
+  # Story 6: Expression peur
+  - story: express fear
+    steps:
+      - intent: feeling_scared
+      - action: action_analyze_sentiment
+      - action: action_detect_risk
+      - action: action_empathic_response
+      - action: utter_offer_help
+
+  # Story 7: Solitude avec fin de session
+  - story: express loneliness
+    steps:
+      - intent: feeling_lonely
+      - action: action_analyze_sentiment
+      - action: action_detect_risk
+      - action: action_empathic_response
+      - action: utter_offer_help
+      - intent: deny
+      - action: utter_default
+      - action: utter_suggest_professional
+      - intent: goodbye
+      - action: action_analyze_sentiment
+      - action: action_check_session_end
+      - action: utter_goodbye
+      - action: action_save_conversation
+
+  # Story 8: Confusion (sans risque)
+  - story: express confusion
+    steps:
+      - intent: feeling_confused
+      - action: action_analyze_sentiment
+      - action: action_empathic_response
+      - action: utter_respond_confusion
+
+  # Story 9: Stress avec détection risque
+  - story: express stress
+    steps:
+      - intent: feeling_stressed
+      - action: action_analyze_sentiment
+      - action: action_detect_risk
+      - action: action_empathic_response
+      - action: utter_offer_help
+
+  # Story 10: Bonheur (sans risque)
+  - story: express happiness
+    steps:
+      - intent: feeling_happy
+      - action: action_analyze_sentiment
+      - action: action_empathic_response
+      - action: utter_acknowledge_positive
+
+  # Story 11: Excitation (sans risque)
+  - story: express excitement
+    steps:
+      - intent: feeling_excited
+      - action: action_analyze_sentiment
+      - action: action_empathic_response
+      - action: utter_acknowledge_positive
+
+  # Story 12: Gratitude (sans risque)
+  - story: express gratitude
+    steps:
+      - intent: feeling_grateful
+      - action: action_analyze_sentiment
+      - action: action_empathic_response
+      - action: utter_respond_gratitude
+
+  # Story 13: Fierté (sans risque)
+  - story: express pride
+    steps:
+      - intent: feeling_proud
+      - action: action_analyze_sentiment
+      - action: action_empathic_response
+      - action: utter_acknowledge_positive
+
+  # Story 14: Problèmes scolaires avec risque
+  - story: school problems
+    steps:
+      - intent: talk_about_school
+      - action: action_analyze_sentiment
+      - action: action_detect_risk
+      - action: action_empathic_response
+      - action: utter_acknowledge_negative
+
+  # Story 15: Problèmes amitié avec risque
+  - story: friendship problems
+    steps:
+      - intent: talk_about_friends
+      - action: action_analyze_sentiment
+      - action: action_detect_risk
+      - action: action_empathic_response
+      - action: utter_acknowledge_negative
+
+  # Story 16: Problèmes familiaux avec risque
+  - story: family problems
+    steps:
+      - intent: talk_about_family
+      - action: action_analyze_sentiment
+      - action: action_detect_risk
+      - action: action_empathic_response
+      - action: utter_acknowledge_negative
+
+  # Story 17: Demande aide (sans risque immédiat)
+  - story: ask for help
+    steps:
+      - intent: ask_help
+      - action: action_analyze_sentiment
+      - action: action_empathic_response
+      - action: utter_offer_help
+
+  # Story 18: Partage problème
+  - story: share problem
+    steps:
+      - intent: share_problem
+      - action: action_analyze_sentiment
+      - action: action_detect_risk
+      - action: action_empathic_response
+      - action: utter_encourage
+
+  # Story 19: Besoin soutien avec risque
+  - story: need support
+    steps:
+      - intent: need_support
+      - action: action_analyze_sentiment
+      - action: action_detect_risk
+      - action: action_empathic_response
+      - action: utter_acknowledge_negative
+
+  # Story 20: Question
+  - story: ask question
+    steps:
+      - intent: ask_question
+      - action: action_analyze_sentiment
+      - action: action_empathic_response
+      - action: utter_encourage
+
+  # Story 21: Conversation risque élevé COMPLET
+  - story: high risk conversation
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - action: action_analyze_sentiment
+      - intent: feeling_sad
+      - action: action_analyze_sentiment
+      - action: action_detect_risk
+      - action: action_empathic_response
+      - action: utter_offer_help
+      - intent: feeling_lonely
+      - action: action_analyze_sentiment
+      - action: action_detect_risk
+      - action: action_empathic_response
+      - action: utter_offer_help
+      - intent: affirm
+      - action: utter_encourage
+      - intent: goodbye
+      - action: action_analyze_sentiment
+      - action: action_check_session_end
+      - action: utter_goodbye
+      - action: action_save_conversation
+
+  # Story 22: Génération rapport automatique
+  - story: generate report
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - action: action_analyze_sentiment
+      - intent: express_feeling
+      - action: action_analyze_sentiment
+      - action: action_detect_risk
+      - action: action_empathic_response
+      - intent: goodbye
+      - action: action_analyze_sentiment
+      - action: action_check_session_end
+      - action: utter_goodbye
+      - action: action_save_conversation
+
+  # Story 23: Bot challenge
+  - story: bot challenge
+    steps:
+      - intent: bot_challenge
+      - action: utter_iamabot
+
+  # Story 24: Amélioration humeur
+  - story: mood improvement
+    steps:
+      - intent: feeling_sad
+      - action: action_analyze_sentiment
+      - action: action_detect_risk
+      - action: action_empathic_response
+      - action: utter_offer_help
+      - intent: affirm
+      - action: utter_encourage
+      - intent: feeling_happy
+      - action: action_analyze_sentiment
+      - action: action_empathic_response
+      - action: utter_acknowledge_positive
+      - intent: goodbye
+      - action: action_analyze_sentiment
+      - action: action_check_session_end
+      - action: utter_goodbye
+      - action: action_save_conversation
+
+  # Story 25: Conversation mixte
+  - story: mixed emotions conversation
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - action: action_analyze_sentiment
+      - intent: feeling_confused
+      - action: action_analyze_sentiment
+      - action: action_empathic_response
+      - action: utter_respond_confusion
+      - intent: feeling_anxious
+      - action: action_analyze_sentiment
+      - action: action_detect_risk
+      - action: action_empathic_response
+      - action: utter_offer_help
+      - intent: feeling_grateful
+      - action: action_analyze_sentiment
+      - action: action_empathic_response
+      - action: utter_respond_gratitude
+      - intent: goodbye
+      - action: action_analyze_sentiment
+      - action: action_check_session_end
+      - action: utter_goodbye
+      - action: action_save_conversation
+
+  # Story 26: Aide refusée
+  - story: help refused end session
+    steps:
+      - intent: feeling_sad
+      - action: action_analyze_sentiment
+      - action: action_detect_risk
+      - action: action_empathic_response
+      - action: utter_offer_help
+      - intent: deny
+      - action: action_analyze_sentiment
+      - action: action_check_session_end
+      - action: utter_default
+      - action: action_save_conversation
+
+  # Story 27: Aide acceptée
+  - story: help accepted end session
+    steps:
+      - intent: feeling_anxious
+      - action: action_analyze_sentiment
+      - action: action_detect_risk
+      - action: action_empathic_response
+      - action: utter_offer_help
+      - intent: affirm
+      - action: utter_encourage
+      - intent: goodbye
+      - action: action_analyze_sentiment
+      - action: action_check_session_end
+      - action: utter_goodbye
+      - action: action_save_conversation
+
+  # Story 28: Generic goodbye handler - ALWAYS triggers session end analysis
+  - story: generic goodbye catchall
+    steps:
+      - intent: goodbye
+      - action: action_analyze_sentiment
+      - action: action_check_session_end
+      - action: utter_goodbye
+      - action: action_save_conversation

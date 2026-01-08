@@ -1,0 +1,985 @@
+{
+  "session_id": "student_20260108005104",
+  "timestamp": "2026-01-08T00:57:42.916707",
+  "conversation_history": [
+    {
+      "timestamp": "2026-01-08T00:55:48.748613",
+      "message": "hello",
+      "sentiment": {
+        "dominant_emotion": "neutral",
+        "dominant_score": 0.9,
+        "top_emotions": [
+          [
+            "neutral",
+            0.8999051451683044
+          ],
+          [
+            "approval",
+            0.04070733115077019
+          ],
+          [
+            "annoyance",
+            0.018376069143414497
+          ]
+        ],
+        "sentiment": "neutral",
+        "sentiment_id": 2,
+        "confidence": 0.9,
+        "all_emotion_scores": {
+          "admiration": 0.004,
+          "amusement": 0.003,
+          "anger": 0.004,
+          "annoyance": 0.018,
+          "approval": 0.041,
+          "caring": 0.002,
+          "confusion": 0.001,
+          "curiosity": 0.001,
+          "desire": 0.001,
+          "disappointment": 0.001,
+          "disapproval": 0.003,
+          "disgust": 0.001,
+          "embarrassment": 0.001,
+          "excitement": 0.001,
+          "fear": 0.0,
+          "gratitude": 0.002,
+          "grief": 0.0,
+          "joy": 0.005,
+          "love": 0.003,
+          "nervousness": 0.0,
+          "optimism": 0.001,
+          "pride": 0.001,
+          "realization": 0.002,
+          "relief": 0.004,
+          "remorse": 0.001,
+          "sadness": 0.0,
+          "surprise": 0.001,
+          "neutral": 0.9
+        },
+        "emotion_details": {
+          "admiration": {
+            "score": 0.004,
+            "is_dominant": false
+          },
+          "amusement": {
+            "score": 0.003,
+            "is_dominant": false
+          },
+          "anger": {
+            "score": 0.004,
+            "is_dominant": false
+          },
+          "annoyance": {
+            "score": 0.018,
+            "is_dominant": false
+          },
+          "approval": {
+            "score": 0.041,
+            "is_dominant": false
+          },
+          "caring": {
+            "score": 0.002,
+            "is_dominant": false
+          },
+          "confusion": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "curiosity": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "desire": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "disappointment": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "disapproval": {
+            "score": 0.003,
+            "is_dominant": false
+          },
+          "disgust": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "embarrassment": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "excitement": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "fear": {
+            "score": 0.0,
+            "is_dominant": false
+          },
+          "gratitude": {
+            "score": 0.002,
+            "is_dominant": false
+          },
+          "grief": {
+            "score": 0.0,
+            "is_dominant": false
+          },
+          "joy": {
+            "score": 0.005,
+            "is_dominant": false
+          },
+          "love": {
+            "score": 0.003,
+            "is_dominant": false
+          },
+          "nervousness": {
+            "score": 0.0,
+            "is_dominant": false
+          },
+          "optimism": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "pride": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "realization": {
+            "score": 0.002,
+            "is_dominant": false
+          },
+          "relief": {
+            "score": 0.004,
+            "is_dominant": false
+          },
+          "remorse": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "sadness": {
+            "score": 0.0,
+            "is_dominant": false
+          },
+          "surprise": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "neutral": {
+            "score": 0.9,
+            "is_dominant": true
+          }
+        }
+      },
+      "linguistic_features": {
+        "has_negation": false,
+        "negations": [],
+        "has_intensifier": false,
+        "intensifiers": []
+      }
+    },
+    {
+      "timestamp": "2026-01-08T00:56:11.966599",
+      "message": "I don't want to live anymore",
+      "sentiment": {
+        "dominant_emotion": "sadness",
+        "dominant_score": 0.343,
+        "top_emotions": [
+          [
+            "sadness",
+            0.34307003021240234
+          ],
+          [
+            "disapproval",
+            0.24367755651474
+          ],
+          [
+            "anger",
+            0.17339608073234558
+          ]
+        ],
+        "sentiment": "negative",
+        "sentiment_id": 0,
+        "confidence": 0.343,
+        "all_emotion_scores": {
+          "admiration": 0.001,
+          "amusement": 0.003,
+          "anger": 0.173,
+          "annoyance": 0.068,
+          "approval": 0.005,
+          "caring": 0.001,
+          "confusion": 0.001,
+          "curiosity": 0.001,
+          "desire": 0.002,
+          "disappointment": 0.028,
+          "disapproval": 0.244,
+          "disgust": 0.002,
+          "embarrassment": 0.001,
+          "excitement": 0.003,
+          "fear": 0.003,
+          "gratitude": 0.004,
+          "grief": 0.026,
+          "joy": 0.0,
+          "love": 0.002,
+          "nervousness": 0.0,
+          "optimism": 0.0,
+          "pride": 0.002,
+          "realization": 0.011,
+          "relief": 0.001,
+          "remorse": 0.003,
+          "sadness": 0.343,
+          "surprise": 0.004,
+          "neutral": 0.068
+        },
+        "emotion_details": {
+          "admiration": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "amusement": {
+            "score": 0.003,
+            "is_dominant": false
+          },
+          "anger": {
+            "score": 0.173,
+            "is_dominant": false
+          },
+          "annoyance": {
+            "score": 0.068,
+            "is_dominant": false
+          },
+          "approval": {
+            "score": 0.005,
+            "is_dominant": false
+          },
+          "caring": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "confusion": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "curiosity": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "desire": {
+            "score": 0.002,
+            "is_dominant": false
+          },
+          "disappointment": {
+            "score": 0.028,
+            "is_dominant": false
+          },
+          "disapproval": {
+            "score": 0.244,
+            "is_dominant": false
+          },
+          "disgust": {
+            "score": 0.002,
+            "is_dominant": false
+          },
+          "embarrassment": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "excitement": {
+            "score": 0.003,
+            "is_dominant": false
+          },
+          "fear": {
+            "score": 0.003,
+            "is_dominant": false
+          },
+          "gratitude": {
+            "score": 0.004,
+            "is_dominant": false
+          },
+          "grief": {
+            "score": 0.026,
+            "is_dominant": false
+          },
+          "joy": {
+            "score": 0.0,
+            "is_dominant": false
+          },
+          "love": {
+            "score": 0.002,
+            "is_dominant": false
+          },
+          "nervousness": {
+            "score": 0.0,
+            "is_dominant": false
+          },
+          "optimism": {
+            "score": 0.0,
+            "is_dominant": false
+          },
+          "pride": {
+            "score": 0.002,
+            "is_dominant": false
+          },
+          "realization": {
+            "score": 0.011,
+            "is_dominant": false
+          },
+          "relief": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "remorse": {
+            "score": 0.003,
+            "is_dominant": false
+          },
+          "sadness": {
+            "score": 0.343,
+            "is_dominant": true
+          },
+          "surprise": {
+            "score": 0.004,
+            "is_dominant": false
+          },
+          "neutral": {
+            "score": 0.068,
+            "is_dominant": false
+          }
+        }
+      },
+      "linguistic_features": {
+        "has_negation": true,
+        "negations": [
+          "don't"
+        ],
+        "has_intensifier": false,
+        "intensifiers": []
+      }
+    },
+    {
+      "timestamp": "2026-01-08T00:56:34.866156",
+      "message": "everything is too hard",
+      "sentiment": {
+        "dominant_emotion": "disappointment",
+        "dominant_score": 0.406,
+        "top_emotions": [
+          [
+            "disappointment",
+            0.4055662751197815
+          ],
+          [
+            "neutral",
+            0.2033359408378601
+          ],
+          [
+            "annoyance",
+            0.1683109998703003
+          ]
+        ],
+        "sentiment": "negative",
+        "sentiment_id": 0,
+        "confidence": 0.406,
+        "all_emotion_scores": {
+          "admiration": 0.005,
+          "amusement": 0.01,
+          "anger": 0.003,
+          "annoyance": 0.168,
+          "approval": 0.025,
+          "caring": 0.0,
+          "confusion": 0.001,
+          "curiosity": 0.001,
+          "desire": 0.001,
+          "disappointment": 0.406,
+          "disapproval": 0.11,
+          "disgust": 0.0,
+          "embarrassment": 0.003,
+          "excitement": 0.001,
+          "fear": 0.001,
+          "gratitude": 0.005,
+          "grief": 0.0,
+          "joy": 0.001,
+          "love": 0.001,
+          "nervousness": 0.0,
+          "optimism": 0.0,
+          "pride": 0.0,
+          "realization": 0.036,
+          "relief": 0.001,
+          "remorse": 0.0,
+          "sadness": 0.016,
+          "surprise": 0.001,
+          "neutral": 0.203
+        },
+        "emotion_details": {
+          "admiration": {
+            "score": 0.005,
+            "is_dominant": false
+          },
+          "amusement": {
+            "score": 0.01,
+            "is_dominant": false
+          },
+          "anger": {
+            "score": 0.003,
+            "is_dominant": false
+          },
+          "annoyance": {
+            "score": 0.168,
+            "is_dominant": false
+          },
+          "approval": {
+            "score": 0.025,
+            "is_dominant": false
+          },
+          "caring": {
+            "score": 0.0,
+            "is_dominant": false
+          },
+          "confusion": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "curiosity": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "desire": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "disappointment": {
+            "score": 0.406,
+            "is_dominant": true
+          },
+          "disapproval": {
+            "score": 0.11,
+            "is_dominant": false
+          },
+          "disgust": {
+            "score": 0.0,
+            "is_dominant": false
+          },
+          "embarrassment": {
+            "score": 0.003,
+            "is_dominant": false
+          },
+          "excitement": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "fear": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "gratitude": {
+            "score": 0.005,
+            "is_dominant": false
+          },
+          "grief": {
+            "score": 0.0,
+            "is_dominant": false
+          },
+          "joy": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "love": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "nervousness": {
+            "score": 0.0,
+            "is_dominant": false
+          },
+          "optimism": {
+            "score": 0.0,
+            "is_dominant": false
+          },
+          "pride": {
+            "score": 0.0,
+            "is_dominant": false
+          },
+          "realization": {
+            "score": 0.036,
+            "is_dominant": false
+          },
+          "relief": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "remorse": {
+            "score": 0.0,
+            "is_dominant": false
+          },
+          "sadness": {
+            "score": 0.016,
+            "is_dominant": false
+          },
+          "surprise": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "neutral": {
+            "score": 0.203,
+            "is_dominant": false
+          }
+        }
+      },
+      "linguistic_features": {
+        "has_negation": false,
+        "negations": [],
+        "has_intensifier": true,
+        "intensifiers": [
+          "too"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-01-08T00:57:16.253718",
+      "message": "nobody would miss me",
+      "sentiment": {
+        "dominant_emotion": "sadness",
+        "dominant_score": 0.791,
+        "top_emotions": [
+          [
+            "sadness",
+            0.7906126976013184
+          ],
+          [
+            "optimism",
+            0.09827004373073578
+          ],
+          [
+            "disappointment",
+            0.030776895582675934
+          ]
+        ],
+        "sentiment": "negative",
+        "sentiment_id": 0,
+        "confidence": 0.791,
+        "all_emotion_scores": {
+          "admiration": 0.001,
+          "amusement": 0.002,
+          "anger": 0.0,
+          "annoyance": 0.002,
+          "approval": 0.004,
+          "caring": 0.001,
+          "confusion": 0.001,
+          "curiosity": 0.0,
+          "desire": 0.003,
+          "disappointment": 0.031,
+          "disapproval": 0.001,
+          "disgust": 0.001,
+          "embarrassment": 0.002,
+          "excitement": 0.001,
+          "fear": 0.007,
+          "gratitude": 0.003,
+          "grief": 0.0,
+          "joy": 0.009,
+          "love": 0.01,
+          "nervousness": 0.003,
+          "optimism": 0.098,
+          "pride": 0.001,
+          "realization": 0.006,
+          "relief": 0.001,
+          "remorse": 0.012,
+          "sadness": 0.791,
+          "surprise": 0.0,
+          "neutral": 0.009
+        },
+        "emotion_details": {
+          "admiration": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "amusement": {
+            "score": 0.002,
+            "is_dominant": false
+          },
+          "anger": {
+            "score": 0.0,
+            "is_dominant": false
+          },
+          "annoyance": {
+            "score": 0.002,
+            "is_dominant": false
+          },
+          "approval": {
+            "score": 0.004,
+            "is_dominant": false
+          },
+          "caring": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "confusion": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "curiosity": {
+            "score": 0.0,
+            "is_dominant": false
+          },
+          "desire": {
+            "score": 0.003,
+            "is_dominant": false
+          },
+          "disappointment": {
+            "score": 0.031,
+            "is_dominant": false
+          },
+          "disapproval": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "disgust": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "embarrassment": {
+            "score": 0.002,
+            "is_dominant": false
+          },
+          "excitement": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "fear": {
+            "score": 0.007,
+            "is_dominant": false
+          },
+          "gratitude": {
+            "score": 0.003,
+            "is_dominant": false
+          },
+          "grief": {
+            "score": 0.0,
+            "is_dominant": false
+          },
+          "joy": {
+            "score": 0.009,
+            "is_dominant": false
+          },
+          "love": {
+            "score": 0.01,
+            "is_dominant": false
+          },
+          "nervousness": {
+            "score": 0.003,
+            "is_dominant": false
+          },
+          "optimism": {
+            "score": 0.098,
+            "is_dominant": false
+          },
+          "pride": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "realization": {
+            "score": 0.006,
+            "is_dominant": false
+          },
+          "relief": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "remorse": {
+            "score": 0.012,
+            "is_dominant": false
+          },
+          "sadness": {
+            "score": 0.791,
+            "is_dominant": true
+          },
+          "surprise": {
+            "score": 0.0,
+            "is_dominant": false
+          },
+          "neutral": {
+            "score": 0.009,
+            "is_dominant": false
+          }
+        }
+      },
+      "linguistic_features": {
+        "has_negation": true,
+        "negations": [
+          "nobody"
+        ],
+        "has_intensifier": false,
+        "intensifiers": []
+      }
+    },
+    {
+      "timestamp": "2026-01-08T00:57:38.439500",
+      "message": "good bye",
+      "sentiment": {
+        "dominant_emotion": "admiration",
+        "dominant_score": 0.292,
+        "top_emotions": [
+          [
+            "admiration",
+            0.2917189300060272
+          ],
+          [
+            "gratitude",
+            0.27140501141548157
+          ],
+          [
+            "approval",
+            0.17024795711040497
+          ]
+        ],
+        "sentiment": "positive",
+        "sentiment_id": 4,
+        "confidence": 0.292,
+        "all_emotion_scores": {
+          "admiration": 0.292,
+          "amusement": 0.021,
+          "anger": 0.001,
+          "annoyance": 0.003,
+          "approval": 0.17,
+          "caring": 0.002,
+          "confusion": 0.002,
+          "curiosity": 0.001,
+          "desire": 0.0,
+          "disappointment": 0.001,
+          "disapproval": 0.004,
+          "disgust": 0.002,
+          "embarrassment": 0.001,
+          "excitement": 0.003,
+          "fear": 0.001,
+          "gratitude": 0.271,
+          "grief": 0.001,
+          "joy": 0.084,
+          "love": 0.024,
+          "nervousness": 0.0,
+          "optimism": 0.001,
+          "pride": 0.001,
+          "realization": 0.001,
+          "relief": 0.002,
+          "remorse": 0.001,
+          "sadness": 0.001,
+          "surprise": 0.0,
+          "neutral": 0.107
+        },
+        "emotion_details": {
+          "admiration": {
+            "score": 0.292,
+            "is_dominant": true
+          },
+          "amusement": {
+            "score": 0.021,
+            "is_dominant": false
+          },
+          "anger": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "annoyance": {
+            "score": 0.003,
+            "is_dominant": false
+          },
+          "approval": {
+            "score": 0.17,
+            "is_dominant": false
+          },
+          "caring": {
+            "score": 0.002,
+            "is_dominant": false
+          },
+          "confusion": {
+            "score": 0.002,
+            "is_dominant": false
+          },
+          "curiosity": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "desire": {
+            "score": 0.0,
+            "is_dominant": false
+          },
+          "disappointment": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "disapproval": {
+            "score": 0.004,
+            "is_dominant": false
+          },
+          "disgust": {
+            "score": 0.002,
+            "is_dominant": false
+          },
+          "embarrassment": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "excitement": {
+            "score": 0.003,
+            "is_dominant": false
+          },
+          "fear": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "gratitude": {
+            "score": 0.271,
+            "is_dominant": false
+          },
+          "grief": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "joy": {
+            "score": 0.084,
+            "is_dominant": false
+          },
+          "love": {
+            "score": 0.024,
+            "is_dominant": false
+          },
+          "nervousness": {
+            "score": 0.0,
+            "is_dominant": false
+          },
+          "optimism": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "pride": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "realization": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "relief": {
+            "score": 0.002,
+            "is_dominant": false
+          },
+          "remorse": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "sadness": {
+            "score": 0.001,
+            "is_dominant": false
+          },
+          "surprise": {
+            "score": 0.0,
+            "is_dominant": false
+          },
+          "neutral": {
+            "score": 0.107,
+            "is_dominant": false
+          }
+        }
+      },
+      "linguistic_features": {
+        "has_negation": false,
+        "negations": [],
+        "has_intensifier": false,
+        "intensifiers": []
+      }
+    }
+  ],
+  "detected_emotions": [
+    "neutral",
+    "sadness",
+    "disappointment",
+    "sadness",
+    "admiration"
+  ],
+  "risk_indicators": [
+    {
+      "timestamp": "2026-01-08T00:56:14.125363",
+      "message": "I don't want to live anymore",
+      "risk_analysis": {
+        "risk_level": "high",
+        "categories": {
+          "depression": {
+            "detected": true,
+            "keywords": [],
+            "count": 1,
+            "source": "emotion",
+            "emotion_trigger": "sadness"
+          },
+          "isolation": {
+            "detected": true,
+            "keywords": [],
+            "count": 1,
+            "source": "emotion",
+            "emotion_trigger": "sadness"
+          }
+        },
+        "total_categories": 2,
+        "emotion_based": true
+      },
+      "dominant_emotion": "sadness",
+      "student_id": "student_20260108005104",
+      "detected_emotions": [
+        "sadness",
+        "sadness",
+        "disapproval"
+      ]
+    },
+    {
+      "timestamp": "2026-01-08T00:56:37.029734",
+      "message": "everything is too hard",
+      "risk_analysis": {
+        "risk_level": "low",
+        "categories": {
+          "academic": {
+            "detected": true,
+            "keywords": [],
+            "count": 1,
+            "source": "emotion",
+            "emotion_trigger": "disappointment"
+          }
+        },
+        "total_categories": 1,
+        "emotion_based": false
+      },
+      "dominant_emotion": "disappointment",
+      "student_id": "student_20260108005104",
+      "detected_emotions": [
+        "disappointment",
+        "disappointment",
+        "neutral"
+      ]
+    },
+    {
+      "timestamp": "2026-01-08T00:57:18.481574",
+      "message": "nobody would miss me",
+      "risk_analysis": {
+        "risk_level": "high",
+        "categories": {
+          "depression": {
+            "detected": true,
+            "keywords": [],
+            "count": 1,
+            "source": "emotion",
+            "emotion_trigger": "sadness"
+          },
+          "isolation": {
+            "detected": true,
+            "keywords": [],
+            "count": 1,
+            "source": "emotion",
+            "emotion_trigger": "sadness"
+          }
+        },
+        "total_categories": 2,
+        "emotion_based": true
+      },
+      "dominant_emotion": "sadness",
+      "student_id": "student_20260108005104",
+      "detected_emotions": [
+        "sadness",
+        "sadness",
+        "optimism"
+      ]
+    }
+  ]
+}

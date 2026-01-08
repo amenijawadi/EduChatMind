@@ -1,0 +1,31 @@
+version: "3.1"
+
+rules:
+  - rule: Respond to bot challenge
+    steps:
+      - intent: bot_challenge
+      - action: utter_iamabot
+
+  - rule: Say goodbye and analyze session
+    steps:
+      - intent: goodbye
+      - action: action_analyze_sentiment
+      - action: action_check_session_end
+      - action: utter_goodbye
+      - action: action_save_conversation
+
+  - rule: Analyze sentiment after greeting
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - action: action_analyze_sentiment
+
+  - rule: Handle affirm intent
+    steps:
+      - intent: affirm
+      - action: utter_encourage
+
+  - rule: Default fallback
+    steps:
+      - intent: nlu_fallback
+      - action: utter_default

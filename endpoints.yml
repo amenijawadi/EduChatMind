@@ -1,0 +1,20 @@
+# Action server configuration
+action_endpoint:
+  url: "http://localhost:5055/webhook"
+
+# Tracker store for persistence
+tracker_store:
+  type: mongod
+  url: "mongodb://localhost:27017"
+  db: "rasa"
+  collection: "tracker"
+
+#tracker_store:
+  #type: sql
+  #dialect: "sqlite"
+  #db: "conversations.db"
+  
+# Event broker for logging
+event_broker:
+  type: "file"
+  path: "logs/events.log"

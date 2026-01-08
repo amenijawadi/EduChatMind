@@ -1,0 +1,54 @@
+{
+  "alert_type": "SESSION_ANALYSIS",
+  "student_id": "student_20260108005104",
+  "timestamp": "2026-01-08T00:57:40.637651",
+  "alert_level": "critical",
+  "session_stats": {
+    "total_messages": 5,
+    "total_emotions": 5,
+    "negative_emotion_ratio": 60.0,
+    "top_emotions": [
+      {
+        "emotion": "sadness",
+        "count": 2
+      },
+      {
+        "emotion": "neutral",
+        "count": 1
+      },
+      {
+        "emotion": "disappointment",
+        "count": 1
+      },
+      {
+        "emotion": "admiration",
+        "count": 1
+      }
+    ]
+  },
+  "risk_summary": {
+    "total_risk_messages": 3,
+    "high_risk_count": 2,
+    "critical_risk_count": 0,
+    "risk_categories": [
+      {
+        "category": "depression",
+        "count": 2,
+        "keywords": []
+      },
+      {
+        "category": "isolation",
+        "count": 2,
+        "keywords": []
+      },
+      {
+        "category": "academic",
+        "count": 1,
+        "keywords": []
+      }
+    ]
+  },
+  "most_critical_message": "I don't want to live anymore",
+  "requires_immediate_attention": true,
+  "session_completed": true
+}

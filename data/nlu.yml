@@ -1,0 +1,439 @@
+version: "3.1"
+
+nlu:
+  - intent: greet
+    examples: |
+      - hey
+      - hello
+      - hi
+      - hello there
+      - good morning
+      - good evening
+      - hey there
+      - good afternoon
+      - hi there
+      - what's up
+      - howdy
+      - greetings
+
+  - intent: goodbye
+    examples: |
+      - cu
+      - good by
+      - see you later
+      - good night
+      - bye
+      - goodbye
+      - have a nice day
+      - see you around
+      - bye bye
+      - take care
+      - gotta go
+      - see ya
+      - later
+      - catch you later
+
+  - intent: affirm
+    examples: |
+      - yes
+      - y
+      - indeed
+      - of course
+      - that sounds good
+      - correct
+      - yeah
+      - yep
+      - sure
+      - absolutely
+      - ok
+      - okay
+      - right
+      - exactly
+      - definitely
+      - for sure
+      - you're right
+      - I agree
+
+  - intent: deny
+    examples: |
+      - no
+      - n
+      - never
+      - I don't think so
+      - don't like that
+      - no way
+      - not really
+      - nope
+      - nah
+      - I disagree
+      - not at all
+      - absolutely not
+      - I don't want that
+
+  - intent: mood_great
+    examples: |
+      - perfect
+      - great
+      - amazing
+      - feeling like a king
+      - wonderful
+      - I am feeling very good
+      - I am great
+      - I am amazing
+      - super stoked
+      - extremely good
+      - so good
+      - so perfect
+      - I feel fantastic
+      - everything is awesome
+      - life is great
+      - couldn't be better
+      - on top of the world
+
+  - intent: bot_challenge
+    examples: |
+      - are you a bot?
+      - are you a human?
+      - am I talking to a bot?
+      - am I talking to a human?
+      - who are you?
+      - what are you?
+      - are you real?
+      - what's your purpose?
+      - are you an AI?
+
+  - intent: express_feeling
+    examples: |
+      - I feel [sad](emotion)
+      - I'm feeling [angry](emotion)
+      - I feel [happy](emotion)
+      - I feel [anxious](emotion)
+      - I feel [confused](emotion)
+      - I feel [lonely](emotion)
+      - I'm feeling emotional
+      - I have emotions
+      - I'm feeling something
+      - I can't describe how I feel
+
+  - intent: feeling_sad
+    examples: |
+      - I'm sad
+      - I feel down
+      - I'm feeling blue
+      - I'm unhappy
+      - I feel terrible
+      - I'm depressed
+      - I feel empty inside
+      - I want to cry
+      - Everything is going wrong
+      - Nothing makes me happy anymore
+      - I've been crying all day
+      - I feel like giving up
+      - Nothing seems to matter anymore
+      - I can't find joy in anything
+      - I'm having a really tough day
+      - My heart feels heavy
+      - I feel so down right now
+      - Everything feels hopeless
+      - I just want to stay in bed
+      - I don't feel like doing anything
+      - Life feels pointless
+      - I'm struggling emotionally
+      - I feel broken inside
+      - My mood is really low
+      - I can't shake this sadness
+      - I feel worthless
+      - Nobody cares about me
+
+  - intent: feeling_anxious
+    examples: |
+      - I'm anxious
+      - I'm worried
+      - I'm stressed out
+      - I can't stop thinking about it
+      - I'm panicking
+      - I feel nervous
+      - My heart is racing
+      - I can't breathe properly
+      - I'm scared of what might happen
+      - I feel overwhelmed
+      - I'm having a panic attack
+      - I can't calm down
+      - Everything is making me nervous
+      - I feel restless
+      - I can't focus because I'm so anxious
+      - I'm constantly worried
+      - My anxiety is getting worse
+      - I can't stop worrying
+      - I'm afraid something bad will happen
+
+  - intent: feeling_angry
+    examples: |
+      - I'm angry
+      - I'm furious
+      - I'm mad
+      - I'm so frustrated
+      - This makes me angry
+      - I want to scream
+      - I hate this
+      - Everyone annoys me
+      - I can't stand it anymore
+      - I'm so pissed off
+      - They really made me angry
+      - I'm fed up
+      - I'm tired of this
+      - Someone made me really mad
+      - I'm sick of being treated this way
+      - This is so unfair
+      - I can't take it anymore
+      - I'm so done with this
+
+  - intent: feeling_scared
+    examples: |
+      - I'm afraid
+      - I'm terrified
+      - Something bad will happen
+      - I'm frightened
+      - I fear the worst
+      - I'm worried something terrible will occur
+      - I'm really scared
+      - I have this fear
+      - Something scares me
+      - I'm scared of what's coming
+      - I'm afraid to go to school
+      - I'm terrified of what might happen
+      - Fear is consuming me
+      - I can't shake this fear
+      - I'm scared all the time
+
+  - intent: feeling_lonely
+    examples: |
+      - I feel alone
+      - I'm lonely
+      - Nobody understands me
+      - Everyone ignores me
+      - I feel isolated
+      - Nobody cares about me
+      - I'm all by myself
+      - I have no friends
+      - I feel left out
+      - Nobody wants to be around me
+      - I'm always alone
+      - I have nobody to talk to
+      - Everyone has friends except me
+      - I sit alone at lunch
+      - Nobody invites me anywhere
+      - I'm invisible to everyone
+      - I feel disconnected from everyone
+
+  - intent: feeling_confused
+    examples: |
+      - I'm confused
+      - I don't understand
+      - Everything is unclear
+      - I'm lost
+      - I don't get it
+      - Nothing makes sense
+      - This is confusing
+      - I'm not sure what's happening
+      - I can't figure this out
+      - Everything is so complicated
+      - I don't know what to think
+      - I'm mixed up
+      - This doesn't make sense to me
+
+  - intent: feeling_stressed
+    examples: |
+      - I have too much to do
+      - I'm overwhelmed
+      - I can't handle this
+      - There's too much pressure
+      - I'm under a lot of stress
+      - Everything is too much
+      - I'm drowning in work
+      - I can't keep up
+      - The pressure is killing me
+      - I have so many deadlines
+      - I'm so stressed out
+      - I can't manage everything
+      - It's all too much for me
+      - I'm burning out
+
+  - intent: feeling_happy
+    examples: |
+      - I'm happy
+      - I feel great
+      - I'm so joyful
+      - Everything is perfect
+      - I'm thrilled
+      - I'm on cloud nine
+      - Life is wonderful
+      - I'm in such a good mood
+      - I feel amazing today
+      - I'm so pleased
+      - Something great happened
+      - I'm beaming with joy
+      - I can't stop smiling
+      - Today is a great day
+
+  - intent: feeling_excited
+    examples: |
+      - I can't wait
+      - This is amazing
+      - I'm so pumped
+      - I'm thrilled about this
+      - This is awesome
+      - I'm so excited
+      - I'm really looking forward to this
+      - I'm stoked
+      - This is going to be great
+      - I'm hyped
+      - I can barely contain my excitement
+      - This is so cool
+
+  - intent: feeling_grateful
+    examples: |
+      - I'm grateful
+      - I'm thankful
+      - I appreciate this
+      - Thank you so much
+      - I'm lucky
+      - I'm blessed
+      - I really appreciate that
+      - I'm so thankful for this
+      - I feel grateful
+      - I'm thankful for everything
+
+  - intent: feeling_proud
+    examples: |
+      - I'm proud
+      - I did well
+      - I'm satisfied with myself
+      - I accomplished something
+      - I feel good about what I did
+      - I'm proud of myself
+      - I achieved my goal
+      - I succeeded
+      - I did it
+      - I'm happy with my progress
+      - I proved myself
+
+  - intent: talk_about_school
+    examples: |
+      - I have problems at school
+      - School is hard
+      - I'm failing my classes
+      - I don't understand the lessons
+      - My grades are bad
+      - I hate school
+      - Teachers don't like me
+      - I can't concentrate in class
+      - My teacher called out my grade in front of everyone
+      - I got a bad grade on my test
+      - Everyone in class is smarter than me
+      - I don't have any friends at school
+      - I'm being bullied at school
+      - I'm afraid to go to school
+      - Homework is overwhelming
+      - I failed another exam
+      - My parents will be disappointed with my grades
+      - I can't keep up with the class
+      - School makes me anxious
+      - I'm scared of presentations
+      - I don't fit in at school
+      - The workload is too much
+      - I'm struggling in school
+
+  - intent: talk_about_friends
+    examples: |
+      - My friends don't talk to me anymore
+      - My friends are mean to me
+      - Everyone ignores me at school
+      - I'm being excluded
+      - Nobody wants to hang out with me
+      - I feel rejected by my friends
+      - My best friend abandoned me
+      - I don't have any real friends
+      - People make fun of me
+      - I'm always left out
+      - My friends betrayed me
+      - Nobody sits with me at lunch
+      - I'm being bullied by my classmates
+      - Everyone laughs at me
+      - I'm the target of jokes
+      - My friends talk behind my back
+      - I was uninvited from a party
+      - They don't include me in group chats
+
+  - intent: talk_about_family
+    examples: |
+      - My parents don't understand me
+      - I fight with my family
+      - My parents are always angry
+      - Family problems
+      - My parents are divorcing
+      - I don't get along with my siblings
+      - My parents yell at me
+      - There's constant fighting at home
+      - My family doesn't support me
+      - My parents expect too much from me
+      - I feel like a disappointment to my family
+      - My home life is stressful
+      - My parents compare me to my siblings
+      - I can't talk to my parents
+      - My family doesn't listen to me
+
+  - intent: ask_help
+    examples: |
+      - Can you help me?
+      - I need help
+      - Help me please
+      - I need someone to talk to
+      - Can you give me advice?
+      - What should I do?
+      - I don't know what to do
+      - Please help
+      - I need support
+      - Can you assist me?
+      - I'm looking for guidance
+      - I need someone's help
+
+  - intent: ask_question
+    examples: |
+      - Why do I feel this way?
+      - Is this normal?
+      - What's wrong with me?
+      - Why is this happening?
+      - Can you explain?
+      - Why am I like this?
+      - Is it bad that I feel this way?
+      - Am I overreacting?
+      - What does this mean?
+      - Why can't I stop feeling like this?
+
+  - intent: share_problem
+    examples: |
+      - I have a problem
+      - Something is wrong
+      - I need to tell you something
+      - There's something bothering me
+      - I want to talk about something
+      - Can I share something with you?
+      - I'm dealing with something
+      - There's something on my mind
+      - I have an issue
+      - Something's been troubling me
+
+  - intent: need_support
+    examples: |
+      - I need support
+      - Can you listen to me?
+      - I need someone to understand
+      - Please listen
+      - I need to vent
+      - I just need someone to talk to
+      - Can you be here for me?
+      - I need emotional support
+      - I just want to be heard
+      - Can you understand me?
+      - I need someone who cares

@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# Rasa
+models/*.tar.gz
+.rasa/
+
+# MongoDB
+*.log
+
+# Modèles lourds (hébergés sur Hugging Face)
+models/model.pt
+models/*.h5
+models/*.pkl
+
+# Credentials et secrets
+.env
+credentials.yml
+credentials_prod.yml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Backup
+backup/
+*.backup
