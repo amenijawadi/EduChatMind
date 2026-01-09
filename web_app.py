@@ -53,6 +53,7 @@ try:
     init_admin_account() # Créer le compte admin par défaut s'il n'existe pas
 except Exception as e:
     MONGODB_AVAILABLE = False
+    CONNECTION_ERROR = str(e)
     print(f"[ERROR] Database connection failed: {e}")
 
 # Styles CSS
@@ -1022,6 +1023,8 @@ def login_page():
         st.error(f"⚠️ Connection Error: Database is not available.")
         with st.expander("Technical Debug Info"):
             st.write("Found secret keys:", list(st.secrets.keys()))
+            if "CONNECTION_ERROR" in globals():
+                st.error(f"Error Message: {CONNECTION_ERROR}")
             st.write("Format expected: `[mongo] uri = '...'` or `MONGODB_URI = '...'`")
             st.info("Check your Streamlit App Dashboard -> Settings -> Secrets")
     
