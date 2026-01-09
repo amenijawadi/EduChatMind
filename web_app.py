@@ -32,20 +32,28 @@ else:
 
 # Connexion MongoDB
 try:
-    # Configuration MongoDB avec Priority aux Secrets
-    if "mongo" in st.secrets:
+    # 1. Essayer de récupérer l'URI depuis st.secrets (Format TOML [mongo] uri=...)
+    if "mongo" in st.secrets and "uri" in st.secrets["mongo"]:
         mongo_uri = st.secrets["mongo"]["uri"]
-        client = pymongo.MongoClient(mongo_uri, serverSelectionTimeoutMS=2000)
+    # 2. Essayer de récupérer l'URI directement (Format secret sans section)
+    elif "MONGODB_URI" in st.secrets:
+        mongo_uri = st.secrets["MONGODB_URI"]
+    # 3. Essayer depuis les variables d'environnement (Railway/Compose/etc)
     else:
-        client = pymongo.MongoClient("mongodb://localhost:27017/", serverSelectionTimeoutMS=2000)
-    client.server_info()
-    db = client["rasa"] 
+        mongo_uri = os.getenv("MONGODB_URI", "mongodb://localhost:27017/")
+
+    client = pymongo.MongoClient(mongo_uri, serverSelectionTimeoutMS=5000)
+    client.server_info() # Vérifier la connexion
+    
+    db = client.get_database("rasa") 
     tracker_collection = db["tracker"]
-    users_collection = db["users"]  # Nouvelle collection pour les utilisateurs
+    users_collection = db["users"]
+    
     MONGODB_AVAILABLE = True
     init_admin_account() # Créer le compte admin par défaut s'il n'existe pas
-except:
+except Exception as e:
     MONGODB_AVAILABLE = False
+    print(f"[ERROR] Database connection failed: {e}")
 
 # Styles CSS
 # Remplacez la section CSS actuelle par celle-ci (lignes ~30-80) :
@@ -1009,6 +1017,9 @@ def login_page():
     """, unsafe_allow_html=True)
     
     st.markdown("<br>", unsafe_allow_html=True)
+    
+    if not MONGODB_AVAILABLE:
+        st.error("⚠️ Connection Error: Database is not available. Please check your Streamlit Secrets (MONGODB_URI).")
     
     email = st.text_input("📧 Email Address", placeholder="your.email@school.com", key="email_input")
     password = st.text_input("🔑 Password", type="password", placeholder="••••••••", key="pwd_input")
