@@ -50,7 +50,6 @@ try:
     users_collection = db["users"]
     
     MONGODB_AVAILABLE = True
-    init_admin_account() # Créer le compte admin par défaut s'il n'existe pas
 except Exception as e:
     MONGODB_AVAILABLE = False
     CONNECTION_ERROR = str(e)
