@@ -1,0 +1,17 @@
+name: streamlit
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+    - streamlit>=1.30.0
+    - pymongo>=4.6.0
+    - dnspython>=2.6.0
+    - python-dotenv>=1.0.0
+    - requests>=2.31.0
+    - plotly>=5.18.0
+    - reportlab>=4.0.0
+    - numpy<2.0.0
+    - pandas>=2.0.0
+    - Pillow>=10.0.0

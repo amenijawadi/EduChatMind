@@ -24,16 +24,26 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-RASA_API_URL = "http://localhost:5005/webhooks/rest/webhook"
+# Configuration RASA
+if "rasa" in st.secrets:
+    RASA_API_URL = st.secrets["rasa"]["url"]
+else:
+    RASA_API_URL = "http://localhost:5005/webhooks/rest/webhook"
 
 # Connexion MongoDB
 try:
-    client = pymongo.MongoClient("mongodb://localhost:27017/", serverSelectionTimeoutMS=2000)
+    # Configuration MongoDB avec Priority aux Secrets
+    if "mongo" in st.secrets:
+        mongo_uri = st.secrets["mongo"]["uri"]
+        client = pymongo.MongoClient(mongo_uri, serverSelectionTimeoutMS=2000)
+    else:
+        client = pymongo.MongoClient("mongodb://localhost:27017/", serverSelectionTimeoutMS=2000)
     client.server_info()
     db = client["rasa"] 
     tracker_collection = db["tracker"]
     users_collection = db["users"]  # Nouvelle collection pour les utilisateurs
     MONGODB_AVAILABLE = True
+    init_admin_account() # Créer le compte admin par défaut s'il n'existe pas
 except:
     MONGODB_AVAILABLE = False
 
