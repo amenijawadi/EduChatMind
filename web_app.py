@@ -1019,7 +1019,11 @@ def login_page():
     st.markdown("<br>", unsafe_allow_html=True)
     
     if not MONGODB_AVAILABLE:
-        st.error("⚠️ Connection Error: Database is not available. Please check your Streamlit Secrets (MONGODB_URI).")
+        st.error(f"⚠️ Connection Error: Database is not available.")
+        with st.expander("Technical Debug Info"):
+            st.write("Found secret keys:", list(st.secrets.keys()))
+            st.write("Format expected: `[mongo] uri = '...'` or `MONGODB_URI = '...'`")
+            st.info("Check your Streamlit App Dashboard -> Settings -> Secrets")
     
     email = st.text_input("📧 Email Address", placeholder="your.email@school.com", key="email_input")
     password = st.text_input("🔑 Password", type="password", placeholder="••••••••", key="pwd_input")
