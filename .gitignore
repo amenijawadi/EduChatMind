@@ -23,7 +23,8 @@ models/*.pkl
 
 # Credentials et secrets
 .env
-credentials.yml
+# credentials.yml (Uncommented for deployment)
+# credentials.yml
 credentials_prod.yml
 
 # OS

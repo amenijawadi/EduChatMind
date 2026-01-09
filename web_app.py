@@ -300,6 +300,20 @@ if 'emotions_timeline' not in st.session_state:
 
 def send_message_to_rasa(message, sender_id):
     """Envoyer un message à Rasa et récupérer la réponse"""
+    # Vérifier si on est en mode DEMO
+    demo_mode = st.secrets.get("DEMO_MODE", os.getenv("DEMO_MODE", "false")).lower() == "true"
+    
+    if demo_mode:
+        import time
+        import random
+        time.sleep(1) # Simuler un temps de réponse
+        emotions = ['joy', 'sadness', 'anger', 'calm', 'neutral']
+        selected_emotion = random.choice(emotions)
+        return [
+            {"text": f"DÉMO: J'ai bien reçu votre message : '{message}'. (Ceci est une réponse automatique car Rasa n'est pas connecté)."},
+            {"text": f"Emotion détectée (simulation): {selected_emotion}", "custom": {"emotion": selected_emotion}}
+        ]
+
     try:
         payload = {
             "sender": sender_id,

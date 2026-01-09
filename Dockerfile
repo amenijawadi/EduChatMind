@@ -13,8 +13,11 @@ RUN python -m spacy download en_core_web_md
 # Entraîner le modèle Rasa
 RUN rasa train
 
+# Donner les permissions au script de démarrage
+RUN chmod +x /app/start.sh
+
 # Exposer le port
 EXPOSE 5005
 
 # Commande de démarrage
-CMD ["rasa", "run", "--enable-api", "--cors", "*", "--port", "5005", "--debug"]
+CMD ["/app/start.sh"]
