@@ -4,14 +4,14 @@ FROM rasa/rasa:3.6.0-full
 WORKDIR /app
 COPY . /app
 
-# Installer les dépendances Python supplémentaires si nécessaire
-# RUN pip install -r requirements-rasa.txt
-
 # Télécharger le modèle SpaCy
 RUN python -m spacy download en_core_web_md
 
-# Switch to root to fix permissions
+# Switch to root to install dependencies and fix permissions
 USER root
+
+# Installer les dépendances pour l'action server (Torch/Transformers)
+RUN pip install --no-cache-dir -r requirements-rasa.txt
 
 # Donner les permissions au script de démarrage
 RUN chmod +x /app/start.sh
