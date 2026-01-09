@@ -25,5 +25,8 @@ USER 1001
 # Exposer le port
 EXPOSE 5005
 
+# IMPORTANT: Override ENTRYPOINT to run start.sh instead of 'rasa' command
+ENTRYPOINT []
+
 # Commande de démarrage
 CMD ["/app/start.sh"]
