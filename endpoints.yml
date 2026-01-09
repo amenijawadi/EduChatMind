@@ -15,6 +15,6 @@ tracker_store:
   #db: "conversations.db"
   
 # Event broker for logging
-event_broker:
-  type: "file"
-  path: "logs/events.log"
+#event_broker:
+#  type: "file"
+#  path: "logs/events.log"
