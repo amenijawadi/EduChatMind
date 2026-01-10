@@ -9,8 +9,9 @@ USER root
 
 # Installer les dépendances pour l'action server (Torch/Transformers)
 # Utilisation de --extra-index-url pour installer les versions CPU de torch pour économiser de la RAM et de l'espace disque
-RUN pip install --no-cache-dir --no-warn-script-location spacy \
-    torch --index-url https://download.pytorch.org/whl/cpu && \
+RUN pip install --no-cache-dir --no-warn-script-location \
+    spacy \
+    torch --extra-index-url https://download.pytorch.org/whl/cpu && \
     pip install --no-cache-dir --no-warn-script-location -r requirements-rasa.txt && \
     rm -rf /root/.cache/pip && \
     find /usr/local -name "*.pyc" -delete && \
