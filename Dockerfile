@@ -4,9 +4,6 @@ FROM rasa/rasa:3.6.0
 WORKDIR /app
 COPY . /app
 
-# Télécharger le modèle SpaCy
-RUN python -m spacy download en_core_web_md
-
 # Switch to root to install dependencies and fix permissions
 USER root
 
@@ -18,6 +15,9 @@ RUN pip install --no-cache-dir --no-warn-script-location \
     rm -rf /root/.cache/pip && \
     find /usr/local -name "*.pyc" -delete && \
     find /usr/local -name "__pycache__" -delete
+
+# Télécharger le modèle SpaCy (APRÈS installation de spacy)
+RUN python -m spacy download en_core_web_md
 
 # Donner les permissions au script de démarrage
 RUN chmod +x /app/start.sh
