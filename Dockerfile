@@ -7,11 +7,8 @@ COPY . /app
 # Switch to root to install dependencies and fix permissions
 USER root
 
-# Installer les dépendances pour l'action server (sans Torch/Transformers)
-RUN pip install --no-cache-dir --no-warn-script-location \
-    spacy \
-    && pip install --no-cache-dir --no-warn-script-location -r requirements-rasa.txt \
-    && /opt/venv/bin/python -m spacy download en_core_web_md \
+# Installer les dépendances pour l'action server (pipeline légère, sans SpaCy)
+RUN pip install --no-cache-dir --no-warn-script-location -r requirements-rasa.txt \
     && pip install --force-reinstall --no-cache-dir filelock \
     && rm -rf /root/.cache/pip /tmp/* \
     && find /opt/venv -type f -name "*.pyc" -delete \
