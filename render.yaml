@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: educhatmind-rasa
+    env: docker
+    plan: free
+    autoDeploy: true
+    dockerfilePath: ./Dockerfile
+    internalPort: 8080
+    envVars:
+      - key: HF_REPO_ID
+        sync: false
+      - key: HF_TOKEN
+        sync: false

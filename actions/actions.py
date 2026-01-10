@@ -2,199 +2,189 @@ from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
-import torch
-from transformers import XLMRobertaTokenizerFast, XLMRobertaForSequenceClassification
-from huggingface_hub import hf_hub_download
 import json
 from datetime import datetime
 import os
-import numpy as np
 import random
+import requests
 
 # ============================================================================
-# MODÈLE DE SENTIMENT - XLM-RoBERTa 28 ÉMOTIONS
+# MODÈLE DE SENTIMENT - XLM-RoBERTa 28 ÉMOTIONS (via Hugging Face Inference API)
 # ============================================================================
 class SentimentModel:
-    """Modèle XLM-RoBERTa pour détecter 28 émotions (GoEmotions)"""
+    """Client léger pour appeler le modèle XLM-RoBERTa hébergé sur Hugging Face.
+
+    On ne charge plus le modèle localement (pas de torch / transformers dans
+    le container Render). À la place, on appelle l'API d'inférence Hugging Face
+    et on reconstruit la même structure de sortie qu'avant.
+    """
+
     _instance = None
-    
+
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super(SentimentModel, cls).__new__(cls)
-                     
+
             model_path = "./models"
-            
-            print("[INFO] Chargement du modèle XLM-RoBERTa (28 émotions)...")
-            
-            # ✅ 1. Charger tokenizer depuis Hugging Face (petit, 5MB)
+            print("[INFO] Initialisation SentimentModel (HF Inference API)...")
+
+            # Charger metadata locale pour récupérer la liste d'émotions
             try:
-                cls._instance.tokenizer = XLMRobertaTokenizerFast.from_pretrained(
-                    "xlm-roberta-base",
-                    clean_up_tokenization_spaces=True
-                )
-                print("[INFO] ✅ Tokenizer chargé")
-            except Exception as e:
-                print(f"[ERROR] Échec chargement tokenizer: {e}")
-                raise
-            
-            # ✅ 2. Charger metadata local
-            try:
-                with open(f"{model_path}/metadata.json", 'r', encoding='utf-8') as f:
+                with open(os.path.join(model_path, "metadata.json"), "r", encoding="utf-8") as f:
                     metadata = json.load(f)
-                
-                if 'model_info' in metadata:
-                    model_info = metadata['model_info']
-                    num_labels = model_info['num_labels']
-                    cls._instance.emotion_labels = model_info['emotion_labels']
+
+                if "model_info" in metadata:
+                    model_info = metadata["model_info"]
+                    cls._instance.emotion_labels = model_info["emotion_labels"]
                 else:
-                    num_labels = metadata['num_labels']
-                    cls._instance.emotion_labels = metadata['emotion_labels']
-                
+                    cls._instance.emotion_labels = metadata["emotion_labels"]
+
+                cls._instance.threshold = metadata.get("threshold", 0.5)
+
+                print(
+                    f"[INFO] ✅ Metadata chargé: {len(cls._instance.emotion_labels)} émotions"
+                )
+            except Exception as e:
+                print(f"[ERROR] Échec lecture metadata.json: {e}")
+                # En dernier recours, liste vide (le modèle renverra tout de même des labels)
+                cls._instance.emotion_labels = []
                 cls._instance.threshold = 0.5
-                print(f"[INFO] ✅ Metadata chargé: {num_labels} émotions")
-                
-            except Exception as e:
-                print(f"[ERROR] Échec lecture metadata: {e}")
-                raise
-            
-            # ✅ 3. Créer l'architecture du modèle SANS télécharger les poids
-            try:
-                print("[INFO] Création de l'architecture du modèle...")
-                from transformers import XLMRobertaConfig
-                
-                # Créer une config pour xlm-roberta-base
-                config = XLMRobertaConfig.from_pretrained(
-                    "xlm-roberta-base",
-                    num_labels=num_labels,
-                    problem_type="single_label_classification"
+
+            # URL / Token pour l'API HF
+            # HF_API_URL a la priorité, sinon on construit depuis HF_REPO_ID
+            repo_id = os.getenv("HF_REPO_ID", "VOTRE_USERNAME/educhatmind-model")
+            default_api_url = f"https://api-inference.huggingface.co/models/{repo_id}"
+
+            cls._instance.hf_api_url = os.getenv("HF_API_URL", default_api_url)
+            cls._instance.hf_api_token = os.getenv("HF_API_TOKEN")
+
+            if not cls._instance.hf_api_token:
+                print(
+                    "[WARNING] Aucun HF_API_TOKEN défini. L'API HF publique sera utilisée si le modèle est public."
                 )
-                
-                # Créer le modèle avec la config (SANS télécharger les poids)
-                cls._instance.model = XLMRobertaForSequenceClassification(config)
-                print("[INFO] ✅ Architecture créée")
-                
-            except Exception as e:
-                print(f"[ERROR] Échec création architecture: {e}")
-                raise
-            
-            # ✅ 4. Charger VOS poids fine-tunés locaux
-            model_file = os.path.join(model_path, "model.pt")
 
-            # S'assurer que le dossier existe
-            os.makedirs(model_path, exist_ok=True)
-
-            # Télécharger le modèle depuis Hugging Face si absent
-            if not os.path.exists(model_file):
-                repo_id = os.getenv("HF_REPO_ID", "VOTRE_USERNAME/educhatmind-model")
-                token = os.getenv("HF_TOKEN", None)
-
-                print(f"[INFO] model.pt introuvable, téléchargement depuis Hugging Face: {repo_id} ...")
-                try:
-                    hf_hub_download(
-                        repo_id=repo_id,
-                        filename="model.pt",
-                        token=token,
-                        cache_dir=model_path,
-                        local_dir=model_path,
-                        local_dir_use_symlinks=False,
-                    )
-                    print("[INFO] ✅ model.pt téléchargé avec succès")
-                except Exception as e:
-                    print(f"[ERROR] Impossible de télécharger model.pt depuis Hugging Face: {e}")
-                    raise
-
-            try:
-                print("[INFO] Chargement des poids fine-tunés locaux...")
-                checkpoint = torch.load(
-                    model_file,
-                    map_location='cpu',
-                    weights_only=False
-                )
-                
-                cls._instance.model.load_state_dict(checkpoint['model_state_dict'])
-                cls._instance.model.eval()
-                print("[INFO] ✅ Poids fine-tunés chargés depuis model.pt")
-                
-            except Exception as e:
-                print(f"[ERROR] Échec chargement poids: {e}")
-                raise
-            
-            # ✅ 5. Mapping émotions → sentiment global
+            # Mapping émotions → sentiment global
             cls._instance.emotion_to_sentiment = {
-                'admiration': 'positive', 'amusement': 'positive', 'approval': 'positive',
-                'caring': 'positive', 'desire': 'positive', 'excitement': 'positive',
-                'gratitude': 'positive', 'joy': 'positive', 'love': 'positive',
-                'optimism': 'positive', 'pride': 'positive', 'relief': 'positive',
-                'anger': 'negative', 'annoyance': 'negative', 'disappointment': 'negative',
-                'disapproval': 'negative', 'disgust': 'negative', 'embarrassment': 'negative',
-                'fear': 'negative', 'grief': 'negative', 'nervousness': 'negative',
-                'remorse': 'negative', 'sadness': 'negative',
-                'confusion': 'neutral', 'curiosity': 'neutral', 'neutral': 'neutral',
-                'realization': 'neutral', 'surprise': 'neutral'
+                "admiration": "positive",
+                "amusement": "positive",
+                "approval": "positive",
+                "caring": "positive",
+                "desire": "positive",
+                "excitement": "positive",
+                "gratitude": "positive",
+                "joy": "positive",
+                "love": "positive",
+                "optimism": "positive",
+                "pride": "positive",
+                "relief": "positive",
+                "anger": "negative",
+                "annoyance": "negative",
+                "disappointment": "negative",
+                "disapproval": "negative",
+                "disgust": "negative",
+                "embarrassment": "negative",
+                "fear": "negative",
+                "grief": "negative",
+                "nervousness": "negative",
+                "remorse": "negative",
+                "sadness": "negative",
+                "confusion": "neutral",
+                "curiosity": "neutral",
+                "neutral": "neutral",
+                "realization": "neutral",
+                "surprise": "neutral",
             }
-            
-            print(f"[INFO] ✅ MODÈLE PRÊT")
-            print(f"[INFO] Émotions: {len(cls._instance.emotion_labels)}")
-            print(f"[INFO] Seuil: {cls._instance.threshold}")
-        
+
+            print(f"[INFO] ✅ SentimentModel prêt (HF API: {cls._instance.hf_api_url})")
+
         return cls._instance
-    
+
+    def _call_hf_api(self, text: str) -> List[Dict[str, Any]]:
+        """Appelle l'API HF et renvoie une liste de {label, score}.
+
+        On gère plusieurs formats possibles renvoyés par l'API de classification.
+        """
+
+        headers = {}
+        if self.hf_api_token:
+            headers["Authorization"] = f"Bearer {self.hf_api_token}"
+
+        payload = {"inputs": text}
+
+        try:
+            resp = requests.post(self.hf_api_url, headers=headers, json=payload, timeout=30)
+            resp.raise_for_status()
+            data = resp.json()
+        except Exception as e:
+            print(f"[ERROR] Appel HF API échoué: {e}")
+            return []
+
+        # Cas 1 : [[{"label": "joy", "score": 0.9}, ...]]
+        if isinstance(data, list) and data and isinstance(data[0], list):
+            probs = data[0]
+        # Cas 2 : [{"label": "joy", "score": 0.9}, ...]
+        elif isinstance(data, list) and data and isinstance(data[0], dict):
+            probs = data
+        else:
+            print(f"[WARNING] Format de réponse HF inattendu: {data}")
+            return []
+
+        return probs
+
     def predict(self, text: str) -> Dict[str, Any]:
-        """Prédit l'émotion dominante et calcule le sentiment global"""
-        
-        # Tokenize
-        inputs = self.tokenizer(
-            text,
-            return_tensors="pt",
-            truncation=True,
-            padding='max_length',
-            max_length=64
-        )
-        
-        # Predict
-        with torch.no_grad():
-            outputs = self.model(**inputs)
-            probs = torch.softmax(outputs.logits, dim=-1).squeeze(0).numpy()
-        
+        """Prédit l'émotion dominante et calcule le sentiment global via HF API."""
+
+        probs = self._call_hf_api(text)
+        if not probs:
+            # Fallback neutre en cas d'erreur
+            return {
+                "dominant_emotion": "neutral",
+                "dominant_score": 0.0,
+                "top_emotions": [("neutral", 1.0)],
+                "sentiment": "neutral",
+                "sentiment_id": 2,
+                "confidence": 0.0,
+                "all_emotion_scores": {"neutral": 1.0},
+                "emotion_details": {
+                    "neutral": {"score": 1.0, "is_dominant": True},
+                },
+            }
+
+        # Construire un dict label -> score
+        scores_by_label = {item["label"]: float(item["score"]) for item in probs}
+
+        # S'assurer qu'on a une liste d'émotions cohérente
+        if not self.emotion_labels:
+            self.emotion_labels = list(scores_by_label.keys())
+
         # Trouver l'émotion dominante
-        dominant_idx = np.argmax(probs)
-        dominant_emotion = self.emotion_labels[dominant_idx]
-        dominant_score = float(probs[dominant_idx])
-        
+        dominant_emotion = max(scores_by_label.items(), key=lambda x: x[1])[0]
+        dominant_score = scores_by_label[dominant_emotion]
+
         # Top 3 émotions
-        top_indices = np.argsort(probs)[-3:][::-1]
-        top_emotions = [(self.emotion_labels[i], float(probs[i])) for i in top_indices]
-        
+        sorted_items = sorted(scores_by_label.items(), key=lambda x: x[1], reverse=True)
+        top_emotions = sorted_items[:3]
+
         # Scores de toutes les émotions
-        emotion_scores = {
-            emotion: round(float(probs[i]), 3)
-            for i, emotion in enumerate(self.emotion_labels)
-        }
-        
+        emotion_scores = {label: round(score, 3) for label, score in scores_by_label.items()}
+
         # Sentiment global
-        overall_sentiment = self.emotion_to_sentiment.get(dominant_emotion, 'neutral')
-        
-        sentiment_id_mapping = {
-            'negative': 0,
-            'neutral': 2,
-            'positive': 4
-        }
-        
+        overall_sentiment = self.emotion_to_sentiment.get(dominant_emotion, "neutral")
+
+        sentiment_id_mapping = {"negative": 0, "neutral": 2, "positive": 4}
+
         return {
             "dominant_emotion": dominant_emotion,
             "dominant_score": round(dominant_score, 3),
-            "top_emotions": top_emotions,
+            "top_emotions": [(e, float(s)) for e, s in top_emotions],
             "sentiment": overall_sentiment,
             "sentiment_id": sentiment_id_mapping[overall_sentiment],
             "confidence": round(dominant_score, 3),
             "all_emotion_scores": emotion_scores,
             "emotion_details": {
-                emotion: {
-                    "score": emotion_scores[emotion],
-                    "is_dominant": emotion == dominant_emotion
-                }
-                for emotion in self.emotion_labels
-            }
+                emotion: {"score": emotion_scores[emotion], "is_dominant": emotion == dominant_emotion}
+                for emotion in emotion_scores.keys()
+            },
         }
 # ============================================================================
 # DÉTECTEUR DE NÉGATIONS ET INTENSIFICATEURS

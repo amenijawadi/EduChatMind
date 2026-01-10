@@ -7,18 +7,16 @@ COPY . /app
 # Switch to root to install dependencies and fix permissions
 USER root
 
-# Installer les dépendances pour l'action server (Torch/Transformers)
-# Utilisation de --extra-index-url pour installer les versions CPU de torch pour économiser de la RAM et de l'espace disque
+# Installer les dépendances pour l'action server (sans Torch/Transformers)
 RUN pip install --no-cache-dir --no-warn-script-location \
     spacy \
-    torch --extra-index-url https://download.pytorch.org/whl/cpu && \
-    pip install --no-cache-dir --no-warn-script-location -r requirements-rasa.txt && \
-    python -m spacy download en_core_web_md && \
-    pip install --force-reinstall --no-cache-dir filelock && \
-    rm -rf /root/.cache/pip /tmp/* && \
-    find /opt/venv -type f -name "*.pyc" -delete && \
-    find /opt/venv -type d -name "tests" -exec rm -rf {} + 2>/dev/null || true && \
-    rm -rf /root/.cache
+    && pip install --no-cache-dir --no-warn-script-location -r requirements-rasa.txt \
+    && python -m spacy download en_core_web_md \
+    && pip install --force-reinstall --no-cache-dir filelock \
+    && rm -rf /root/.cache/pip /tmp/* \
+    && find /opt/venv -type f -name "*.pyc" -delete \
+    && find /opt/venv -type d -name "tests" -exec rm -rf {} + 2>/dev/null || true \
+    && rm -rf /root/.cache
 
 # Donner les permissions au script de démarrage
 RUN chmod +x /app/start.sh
