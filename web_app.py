@@ -319,14 +319,17 @@ if 'emotions_timeline' not in st.session_state:
 # ==================== FONCTIONS CHATBOT ====================
 
 def send_message_to_rasa(message, sender_id):
-    """Envoyer un message à Rasa et récupérer la réponse"""
-    # Désactiver le mode DEMO pour se connecter à Rasa
-    demo_mode = False 
-    
+    """Envoyer un message à Rasa et récupérer la réponse.
+
+    - Si DEMO_MODE=true (dans .env ou variables d'env) → réponses simulées
+    - Sinon → appel réel à RASA_API_URL
+    """
+    demo_mode = os.getenv("DEMO_MODE", "false").lower() == "true"
+
     if demo_mode:
         import time
         import random
-        time.sleep(1) # Simuler un temps de réponse
+        time.sleep(1)  # Simuler un temps de réponse
         emotions = ['joy', 'sadness', 'anger', 'calm', 'neutral']
         selected_emotion = random.choice(emotions)
         return [
