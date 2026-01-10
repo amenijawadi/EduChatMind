@@ -2,8 +2,10 @@ from huggingface_hub import HfApi, create_repo
 import os
 
 # Configuration - REMPLACEZ AVEC VOS VALEURS
-repo_id = "amaniJaouadi/educhatmind-model"  # Ex: "john-doe/educhatmind-model"
-token = "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"  # Ou utilisez: huggingface-cli login
+# IMPORTANT: ne jamais mettre le token en dur dans le code.
+# On lit repo_id et token depuis les variables d'environnement pour éviter les fuites.
+repo_id = os.getenv("HF_REPO_ID", "amaniJaouadi/educhatmind-model")  # Ex: "john-doe/educhatmind-model"
+token = os.getenv("HF_TOKEN")  # Ou utilisez: huggingface-cli login
 
 # Créer le repo (si pas déjà fait)
 try:
