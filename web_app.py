@@ -324,9 +324,14 @@ def send_message_to_rasa(message, sender_id):
         if response.status_code == 200:
             return response.json()
         else:
-            return [{"text": "Error connecting to chatbot. Please try again."}]
+            print(f"Rasa error: {response.status_code} - {response.text}")
+            return [{"text": f"Rasa error: {response.status_code}"}]
+    except requests.exceptions.ConnectionError as e:
+        print(f"Connection error to {RASA_API_URL}: {str(e)}")
+        return [{"text": f"Cannot connect to Rasa at {RASA_API_URL}. Check your connection."}]
     except Exception as e:
-        return [{"text": f"Connection error: {str(e)}"}]
+        print(f"Error: {str(e)}")
+        return [{"text": f"Error: {str(e)}"}]
 
 def get_emotion_emoji(emotion):
     """Retourner un emoji pour chaque émotion"""
