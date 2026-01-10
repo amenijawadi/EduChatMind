@@ -6,11 +6,10 @@ echo "Current directory: $(pwd)"
 echo "Models available: $(ls -la models/ | head -20)"
 
 # SpaCy model is already installed in the Docker image
-echo "Checking SpaCy models..."
-echo "SpaCy model ready"
+echo "Checking SpaCy models (en_core_web_md)..."
 
-# Verify spacy model is actually available
-python -c "import spacy; spacy.load('en_core_web_sm'); print('SpaCy model verified')"
+# Verify spaCy model is actually available
+/opt/venv/bin/python -c "import spacy; spacy.load('en_core_web_md'); print('SpaCy model en_core_web_md verified')"
 if [ $? -ne 0 ]; then
     echo "ERROR: SpaCy model verification failed"
     exit 1
