@@ -4,6 +4,7 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
 import torch
 from transformers import XLMRobertaTokenizerFast, XLMRobertaForSequenceClassification
+from huggingface_hub import hf_hub_download
 import json
 from datetime import datetime
 import os
@@ -77,10 +78,35 @@ class SentimentModel:
                 raise
             
             # ✅ 4. Charger VOS poids fine-tunés locaux
+            model_file = os.path.join(model_path, "model.pt")
+
+            # S'assurer que le dossier existe
+            os.makedirs(model_path, exist_ok=True)
+
+            # Télécharger le modèle depuis Hugging Face si absent
+            if not os.path.exists(model_file):
+                repo_id = os.getenv("HF_REPO_ID", "VOTRE_USERNAME/educhatmind-model")
+                token = os.getenv("HF_TOKEN", None)
+
+                print(f"[INFO] model.pt introuvable, téléchargement depuis Hugging Face: {repo_id} ...")
+                try:
+                    hf_hub_download(
+                        repo_id=repo_id,
+                        filename="model.pt",
+                        token=token,
+                        cache_dir=model_path,
+                        local_dir=model_path,
+                        local_dir_use_symlinks=False,
+                    )
+                    print("[INFO] ✅ model.pt téléchargé avec succès")
+                except Exception as e:
+                    print(f"[ERROR] Impossible de télécharger model.pt depuis Hugging Face: {e}")
+                    raise
+
             try:
                 print("[INFO] Chargement des poids fine-tunés locaux...")
                 checkpoint = torch.load(
-                    f"{model_path}/model.pt",
+                    model_file,
                     map_location='cpu',
                     weights_only=False
                 )

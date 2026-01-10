@@ -31,3 +31,11 @@ build/
 Thumbs.db
 logs/
 .streamlit/
+
+# Ne pas embarquer les gros artefacts dans l'image Docker
+models/model.pt
+models/*.pt
+alerts/
+conversations/
+reports/
+.rasa/
