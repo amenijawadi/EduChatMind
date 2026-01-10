@@ -12,6 +12,8 @@ ENV/
 # Rasa
 models/*.tar.gz
 .rasa/
+# Exclure SEULEMENT le modèle sentiment (XLM-RoBERTa), pas les modèles Rasa entraînés
+# models/ est inclus volontairement pour les fichiers Rasa
 
 # MongoDB
 *.log
