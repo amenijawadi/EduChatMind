@@ -5,20 +5,32 @@ echo "Starting application..."
 echo "Current directory: $(pwd)"
 echo "Models available: $(ls -la models/ | head -20)"
 
-# Télécharger le modèle SpaCy si pas déjà présent (au 1er démarrage)
+# Download SpaCy model with proper error handling
 echo "Checking SpaCy models..."
-python -m spacy download en_core_web_md 2>/dev/null || echo "SpaCy model already downloaded"
+python -m spacy download en_core_web_md
+if [ $? -ne 0 ]; then
+    echo "ERROR: Failed to download spacy model"
+    exit 1
+fi
+echo "SpaCy model ready"
+
+# Verify spacy model is actually available
+python -c "import spacy; spacy.load('en_core_web_md'); print('SpaCy model verified')"
+if [ $? -ne 0 ]; then
+    echo "ERROR: SpaCy model verification failed"
+    exit 1
+fi
 
 # Start the Rasa action server
 echo "Starting Action Server on port 5055..."
 rasa run actions --port 5055 &
 
-# Start the Rasa server (avec mode de fallback si pas de modèle)
-echo "Starting Rasa Server on port ${PORT:-5005}..."
-if [ -f models/*.tar.gz ] || [ -d models/components ]; then
+# Start the Rasa server with model
+echo "Starting Rasa Server on port ${PORT:-8080}..."
+if [ -f models/model.tar.gz ]; then
     echo "Found trained model, loading..."
-    exec rasa run --enable-api --cors "*" --port ${PORT:-5005} --debug --model models/
+    exec rasa run --enable-api --cors "*" --port ${PORT:-8080} --debug --model models/model.tar.gz
 else
     echo "⚠️  No trained model found. Running in demo mode (responses may be limited)"
-    exec rasa run --enable-api --cors "*" --port ${PORT:-5005} --debug
+    exec rasa run --enable-api --cors "*" --port ${PORT:-8080} --debug
 fi
