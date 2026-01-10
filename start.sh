@@ -10,7 +10,7 @@ echo "Checking SpaCy models..."
 echo "SpaCy model ready"
 
 # Verify spacy model is actually available
-python -c "import spacy; spacy.load('en_core_web_md'); print('SpaCy model verified')"
+python -c "import spacy; spacy.load('en_core_web_sm'); print('SpaCy model verified')"
 if [ $? -ne 0 ]; then
     echo "ERROR: SpaCy model verification failed"
     exit 1
