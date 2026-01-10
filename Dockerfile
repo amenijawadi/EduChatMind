@@ -17,11 +17,8 @@ RUN pip install --no-cache-dir --no-warn-script-location \
     find /opt/venv -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true && \
     find /opt/venv -type f -name "*.pyc" -delete && \
     find /opt/venv -type d -name "*.dist-info" -exec rm -rf {} + 2>/dev/null || true && \
-    find /opt/venv -type d -name "tests" -exec rm -rf {} + 2>/dev/null || true
-
-# Télécharger le modèle SpaCy (APRÈS installation de spacy)
-RUN python -m spacy download en_core_web_md && \
-    rm -rf /tmp/* /root/.cache
+    find /opt/venv -type d -name "tests" -exec rm -rf {} + 2>/dev/null || true && \
+    rm -rf /root/.cache
 
 # Donner les permissions au script de démarrage
 RUN chmod +x /app/start.sh
