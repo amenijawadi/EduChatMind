@@ -5,7 +5,7 @@ services:
     plan: free
     autoDeploy: true
     dockerfilePath: ./Dockerfile
-    internalPort: 8080
+    internalPort: 10000
     envVars:
       - key: HF_REPO_ID
         sync: false

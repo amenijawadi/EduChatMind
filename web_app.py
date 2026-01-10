@@ -28,7 +28,7 @@ st.set_page_config(
 if "rasa" in st.secrets:
     RASA_API_URL = st.secrets["rasa"]["url"]
 else:
-    RASA_API_URL = "https://educhatmind-production.up.railway.app/webhooks/rest/webhook"
+    RASA_API_URL = "https://educhatmind-rasa.onrender.com/webhooks/rest/webhook"
 
 # Connexion MongoDB
 try:

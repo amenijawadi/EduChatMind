@@ -24,8 +24,8 @@ RUN chmod +x /app/start.sh
 # Revenir à l'utilisateur Rasa par défaut
 USER 1001
 
-# Exposer le port
-EXPOSE 5005
+# Exposer le port du serveur Rasa principal (Render fournit PORT=10000)
+EXPOSE 10000
 
 # IMPORTANT: Override ENTRYPOINT to run start.sh instead of 'rasa' command
 ENTRYPOINT []

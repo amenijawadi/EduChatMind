@@ -21,11 +21,11 @@ echo "Starting Action Server on port 5055..."
 rasa run actions --port 5055 &
 
 # Start the Rasa server with model
-echo "Starting Rasa Server on port ${PORT:-8080}..."
+echo "Starting Rasa Server on port ${PORT:-10000}..."
 if [ -f models/model.tar.gz ]; then
     echo "Found trained model, loading..."
-    exec rasa run --enable-api --cors "*" --port ${PORT:-8080} --debug --model models/model.tar.gz
+    exec rasa run --enable-api --cors "*" --port ${PORT:-10000} --debug --model models/model.tar.gz
 else
     echo "⚠️  No trained model found. Running in demo mode (responses may be limited)"
-    exec rasa run --enable-api --cors "*" --port ${PORT:-8080} --debug
+    exec rasa run --enable-api --cors "*" --port ${PORT:-10000} --debug
 fi
