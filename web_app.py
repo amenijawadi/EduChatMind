@@ -300,8 +300,8 @@ if 'emotions_timeline' not in st.session_state:
 
 def send_message_to_rasa(message, sender_id):
     """Envoyer un message à Rasa et récupérer la réponse"""
-    # Vérifier si on est en mode DEMO
-    demo_mode = st.secrets.get("DEMO_MODE", os.getenv("DEMO_MODE", "false")).lower() == "true"
+    # Désactiver le mode DEMO pour se connecter à Rasa
+    demo_mode = False 
     
     if demo_mode:
         import time
