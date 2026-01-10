@@ -19,9 +19,20 @@ ENV/
 *.log
 
 # Modèles lourds (hébergés sur Hugging Face)
+# On garde SEULEMENT les fichiers nécessaires dans le repo (ex: metadata.json, model.tar.gz)
+# et on ignore tous les artefacts du modèle RoBERTa local.
 models/model.pt
 models/*.h5
 models/*.pkl
+models/config.json
+models/tokenizer.json
+models/tokenizer_config.json
+models/sentencepiece.bpe.model
+models/special_tokens_map.json
+models/Train.py
+models/*.png
+models/overfiting.md
+models/resumeEpoch.txt
 
 # Credentials et secrets
 .env

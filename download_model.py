@@ -1,7 +1,5 @@
 import os
 from huggingface_hub import hf_hub_download
-import streamlit as st
-
 def download_model_from_hf():
     """Télécharge le modèle depuis Hugging Face si absent"""
     

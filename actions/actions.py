@@ -56,7 +56,8 @@ class SentimentModel:
             default_api_url = f"https://api-inference.huggingface.co/models/{repo_id}"
 
             cls._instance.hf_api_url = os.getenv("HF_API_URL", default_api_url)
-            cls._instance.hf_api_token = os.getenv("HF_API_TOKEN")
+            # On accepte soit HF_API_TOKEN (recommandé), soit HF_TOKEN (fallback)
+            cls._instance.hf_api_token = os.getenv("HF_API_TOKEN") or os.getenv("HF_TOKEN")
 
             if not cls._instance.hf_api_token:
                 print(
