@@ -13,6 +13,7 @@ RUN pip install --no-cache-dir --no-warn-script-location \
     spacy \
     torch --extra-index-url https://download.pytorch.org/whl/cpu && \
     pip install --no-cache-dir --no-warn-script-location -r requirements-rasa.txt && \
+    python -m spacy download en_core_web_md && \
     pip install --force-reinstall --no-cache-dir filelock && \
     rm -rf /root/.cache/pip /tmp/* && \
     find /opt/venv -type f -name "*.pyc" -delete && \

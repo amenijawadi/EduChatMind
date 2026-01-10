@@ -310,7 +310,7 @@ def send_message_to_rasa(message, sender_id):
         emotions = ['joy', 'sadness', 'anger', 'calm', 'neutral']
         selected_emotion = random.choice(emotions)
         return [
-            {"text": f"DÉMO: J'ai bien reçu votre message : '{message}'. (Ceci est une réponse automatique car Rasa n'est pas connecté)."},
+            {"text": f"DÉMO: J'ai bien reçu ton message : '{message}'. (Ceci est une réponse automatique car Rasa n'est pas connecté)."},
             {"text": f"Emotion détectée (simulation): {selected_emotion}", "custom": {"emotion": selected_emotion}}
         ]
 

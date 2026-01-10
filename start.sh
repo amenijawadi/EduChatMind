@@ -5,13 +5,8 @@ echo "Starting application..."
 echo "Current directory: $(pwd)"
 echo "Models available: $(ls -la models/ | head -20)"
 
-# Download SpaCy model with proper error handling
+# SpaCy model is already installed in the Docker image
 echo "Checking SpaCy models..."
-python -m spacy download en_core_web_md
-if [ $? -ne 0 ]; then
-    echo "ERROR: Failed to download spacy model"
-    exit 1
-fi
 echo "SpaCy model ready"
 
 # Verify spacy model is actually available
