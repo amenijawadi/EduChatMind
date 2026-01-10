@@ -1,5 +1,6 @@
-spacy>=3.0.0
-transformers
-sentencepiece
-filelock
+filelock>=3.0.0
 numpy<2.0.0
+spacy>=3.0.0
+sentencepiece
+transformers
+reportlab>=4.0.0
