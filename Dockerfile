@@ -1,4 +1,4 @@
-FROM rasa/rasa:3.6.0-full
+FROM rasa/rasa:3.6.0
 
 # Copier les fichiers Rasa
 WORKDIR /app
@@ -12,8 +12,12 @@ USER root
 
 # Installer les dépendances pour l'action server (Torch/Transformers)
 # Utilisation de --extra-index-url pour installer les versions CPU de torch pour économiser de la RAM et de l'espace disque
-RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
-RUN pip install --no-cache-dir -r requirements-rasa.txt
+RUN pip install --no-cache-dir --no-warn-script-location \
+    torch --index-url https://download.pytorch.org/whl/cpu && \
+    pip install --no-cache-dir --no-warn-script-location -r requirements-rasa.txt && \
+    rm -rf /root/.cache/pip && \
+    find /usr/local -name "*.pyc" -delete && \
+    find /usr/local -name "__pycache__" -delete
 
 # Donner les permissions au script de démarrage
 RUN chmod +x /app/start.sh
