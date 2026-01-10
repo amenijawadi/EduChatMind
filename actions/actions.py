@@ -7,6 +7,10 @@ from datetime import datetime
 import os
 import random
 import requests
+from dotenv import load_dotenv
+
+# Charger automatiquement les variables d'environnement (HF_TOKEN, HF_API_TOKEN, HF_REPO_ID, etc.) depuis .env en local
+load_dotenv()
 
 # ============================================================================
 # MODÈLE DE SENTIMENT - XLM-RoBERTa 28 ÉMOTIONS (via Hugging Face Inference API)

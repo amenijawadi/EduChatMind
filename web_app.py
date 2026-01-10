@@ -14,8 +14,11 @@ import pymongo
 from io import BytesIO
 import hashlib
 import secrets
-import os  
+import os
+from dotenv import load_dotenv
 
+# Charger automatiquement les variables d'environnement (.env) en local
+load_dotenv()
 
 # Configuration de la page
 st.set_page_config(
@@ -24,28 +27,45 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Configuration RASA
-if "rasa" in st.secrets:
-    RASA_API_URL = st.secrets["rasa"]["url"]
+# Configuration RASA & chargement sécurisé des secrets Streamlit
+# ⚠️ Ne surtout pas appeler st.secrets si aucun secrets.toml n'existe,
+# sinon Streamlit lève immédiatement une erreur.
+project_root = os.path.dirname(os.path.abspath(__file__))
+local_secrets_path = os.path.join(project_root, ".streamlit", "secrets.toml")
+user_secrets_path = os.path.join(os.path.expanduser("~"), ".streamlit", "secrets.toml")
+
+HAS_STREAMLIT_SECRETS = os.path.exists(local_secrets_path) or os.path.exists(user_secrets_path)
+
+if HAS_STREAMLIT_SECRETS:
+    _secrets = st.secrets
 else:
-    RASA_API_URL = "https://educhatmind-rasa.onrender.com/webhooks/rest/webhook"
+    _secrets = {}
+
+# URL Rasa : priorité aux secrets, sinon variables d'env, sinon valeur par défaut
+if HAS_STREAMLIT_SECRETS and "rasa" in _secrets and "url" in _secrets["rasa"]:
+    RASA_API_URL = _secrets["rasa"]["url"]
+else:
+    RASA_API_URL = os.getenv(
+        "RASA_API_URL",
+        "https://educhatmind-rasa.onrender.com/webhooks/rest/webhook",
+    )
 
 # Connexion MongoDB
 try:
-    # 1. Essayer de récupérer l'URI depuis st.secrets (Format TOML [mongo] uri=...)
-    if "mongo" in st.secrets and "uri" in st.secrets["mongo"]:
-        mongo_uri = st.secrets["mongo"]["uri"]
-    # 2. Essayer de récupérer l'URI directement (Format secret sans section)
-    elif "MONGODB_URI" in st.secrets:
-        mongo_uri = st.secrets["MONGODB_URI"]
-    # 3. Essayer depuis les variables d'environnement (Railway/Compose/etc)
+    # 1. Essayer de récupérer l'URI depuis les secrets ([mongo] uri="...")
+    if HAS_STREAMLIT_SECRETS and "mongo" in _secrets and "uri" in _secrets["mongo"]:
+        mongo_uri = _secrets["mongo"]["uri"]
+    # 2. Essayer de récupérer l'URI directement (MONGODB_URI dans secrets)
+    elif HAS_STREAMLIT_SECRETS and "MONGODB_URI" in _secrets:
+        mongo_uri = _secrets["MONGODB_URI"]
+    # 3. Essayer depuis les variables d'environnement (.env, Render, etc.)
     else:
         mongo_uri = os.getenv("MONGODB_URI", "mongodb://localhost:27017/")
 
     client = pymongo.MongoClient(mongo_uri, serverSelectionTimeoutMS=5000)
-    client.server_info() # Vérifier la connexion
+    client.server_info()  # Vérifier la connexion
     
-    db = client.get_database("rasa") 
+    db = client.get_database("rasa")
     tracker_collection = db["tracker"]
     users_collection = db["users"]
     

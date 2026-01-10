@@ -1,5 +1,10 @@
 import os
 from huggingface_hub import hf_hub_download
+from dotenv import load_dotenv
+
+# Charge automatiquement les variables définies dans un fichier .env (en local)
+load_dotenv()
+
 def download_model_from_hf():
     """Télécharge le modèle depuis Hugging Face si absent"""
     

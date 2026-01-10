@@ -1,5 +1,9 @@
 from huggingface_hub import HfApi, create_repo
 import os
+from dotenv import load_dotenv
+
+# Charger automatiquement les variables d'environnement depuis .env en local
+load_dotenv()
 
 # Configuration - REMPLACEZ AVEC VOS VALEURS
 # IMPORTANT: ne jamais mettre le token en dur dans le code.
