@@ -10,7 +10,7 @@ venv/
 ENV/
 
 # Rasa
-models/*.tar.gz
+# Removed: models/*.tar.gz - We need model.tar.gz for Railway deployment
 .rasa/
 # Exclure SEULEMENT le modèle sentiment (XLM-RoBERTa), pas les modèles Rasa entraînés
 # models/ est inclus volontairement pour les fichiers Rasa
