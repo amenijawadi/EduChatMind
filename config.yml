@@ -17,9 +17,13 @@ pipeline:
     max_ngram: 5
 
   - name: DIETClassifier
-    epochs: 100
+    epochs: 50
     constrain_similarities: true
     model_confidence: softmax
+    number_of_transformer_layers: 1
+    transformer_size: 64
+    hidden_layer_sizes:
+      text: [64]
 
   - name: ResponseSelector
     epochs: 100
