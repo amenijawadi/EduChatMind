@@ -5,16 +5,16 @@ language: en
 pipeline:
   - name: WhitespaceTokenizer
 
-  - name: LexicalSyntacticFeaturizer
-    features:
-      - ["low", "title", "upper"]
-      - ["BOS", "EOS", "low", "upper", "title", "digit"]
-      - ["low", "title", "upper"]
+  # Featurisation simple : CountVectors sur mots + caractères
+  - name: CountVectorsFeaturizer
+    analyzer: word
+    min_ngram: 1
+    max_ngram: 1
 
   - name: CountVectorsFeaturizer
     analyzer: char_wb
-    min_ngram: 1
-    max_ngram: 4
+    min_ngram: 3
+    max_ngram: 5
 
   - name: DIETClassifier
     epochs: 100
