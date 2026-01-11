@@ -1,4 +1,4 @@
-FROM rasa/rasa:3.6.0
+FROM rasa/rasa:3.6.21
 
 # Copier les fichiers Rasa
 WORKDIR /app
